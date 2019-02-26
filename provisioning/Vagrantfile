@@ -8,7 +8,7 @@ settings = YAML::load_file("#{dir}/env.yml")
 Vagrant.configure(2) do |config|
                     config.vm.provision "shell", path: "scripts/install.sh",:args => [settings["VM"]["ip"], settings["VM"]["hostname"],settings["VM"]["vmname"]]
                     config.vm.define settings["VM"]["vmname"] do |client|
-                            client.vm.box = "subhakarkotta/ubuntu-18.04-desktop"
+                            client.vm.box = "SubhakarKotta/ubuntu-18.04-desktop"
 	                        client.vm.box_version = "1.0"
                             client.vm.hostname = settings["VM"]["hostname"]
 	                        client.vm.network "private_network", ip: settings["VM"]["ip"]
