@@ -81,8 +81,12 @@ azure-aks-ubuntu  |100.10.10.112|Ubuntu 18.04|2G|2|
 <a id="access_dashboard"></a>
 ## How to access Kubernetes Dashboard ?
 
-***Follow the steps*** 
-[How to access AKS Cluster](#aks)
+From ***local*** system execute the below commands
+
+* `$ ssh -L 8001:localhost:8001 vagrant@100.10.10.112` [***password : vagrant***]
+* `$ kubectl get secret $(kubectl get serviceaccount dashboard -o jsonpath="{.secrets[0].name}") -o jsonpath="{.data.token}" | base64 --decode`
+
+By running the above command a **secret token** will be generated which can be used to login to the Kubernetes Dashboard.
 
 * `$ kubectl proxy`
 

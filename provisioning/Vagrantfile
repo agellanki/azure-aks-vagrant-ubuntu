@@ -8,21 +8,22 @@ settings = YAML::load_file("#{dir}/env.yml")
 Vagrant.configure(2) do |config|
                     config.vm.provision "shell", path: "scripts/install.sh",:args => [settings["VM"]["ip"], settings["VM"]["hostname"],settings["VM"]["vmname"]]
                     config.vm.define settings["VM"]["vmname"] do |client|
-                            client.vm.box = "SubhakarKotta/ubuntu-18.04-desktop"
-	                        client.vm.box_version = "1.0"
-                            client.vm.hostname = settings["VM"]["hostname"]
+                            #client.vm.box = "SubhakarKotta/ubuntu-18.04-desktop"
+                            #client.vm.box_version = "1.0"
+                            client.vm.box = "ubuntu/trusty64"
+	                        client.vm.hostname = settings["VM"]["hostname"]
 	                        client.vm.network "private_network", ip: settings["VM"]["ip"]
                             client.vm.provider "virtualbox" do |v|
-	                              v.gui = true
-                                  v.cpus = settings["VM"]["cpus"]
+	                              v.cpus = settings["VM"]["cpus"]
                                   v.name = settings["VM"]["vmname"]
                                   v.memory = settings["VM"]["memory"]
-                                  v.customize [ "modifyvm", :id, "--monitorcount", settings["VM"]["monitors"] ]
-                                  v.customize [ "modifyvm", :id, "--vram", settings["VM"]["vram"] ]
-                                  v.customize [ "modifyvm", :id, "--accelerate2dvideo", settings["VM"]["accelerate2d"] ]
-                                  v.customize [ "modifyvm", :id, "--accelerate3d", settings["VM"]["accelerate3d"] ]
-                                  v.customize [ "guestproperty", "set", :id, "/VirtualBox/GuestAdd/VBoxService/--timesync-set-threshold", settings["VM"]["time-sync-threshold"] ]
-                                 v.customize [ "modifyvm",  :id, "--clipboard", "bidirectional"]
+                                  #v.gui = true
+                                  #v.customize [ "modifyvm", :id, "--monitorcount", settings["VM"]["monitors"] ]
+                                  #v.customize [ "modifyvm", :id, "--vram", settings["VM"]["vram"] ]
+                                  #v.customize [ "modifyvm", :id, "--accelerate2dvideo", settings["VM"]["accelerate2d"] ]
+                                  #v.customize [ "modifyvm", :id, "--accelerate3d", settings["VM"]["accelerate3d"] ]
+                                  #v.customize [ "guestproperty", "set", :id, "/VirtualBox/GuestAdd/VBoxService/--timesync-set-threshold", settings["VM"]["time-sync-threshold"] ]
+                                 #v.customize [ "modifyvm",  :id, "--clipboard", "bidirectional"]
                              end
                          client.vm.provision "shell", path: "azurecli/install.sh"
 	                     client.vm.provision "shell", path: "kubectl/install.sh"
