@@ -1,4 +1,3 @@
-
 # azure-aks-vagrant-ubuntu
 ![enter image description here](https://lh3.googleusercontent.com/W2lLCPUVHg5eUmcrpB3RrxGR_esVx1t4LH4M6NofUaDN7yR0QL_c7tAa-Y2vzNnRd8i9PXLCSKDSOA)
 ## About...
@@ -13,6 +12,8 @@ This setup is used to install ***pre-requisites*** that are required to access  
 * [What are the VM configuration details ?](#configuration)
 * [How to access existing AKS cluster ?](#aks)
 * [How to access Kubernetes Dashboard ?](#access_dashboard)
+* [How to create AKS cluster ?](#create_cluster)
+* [How to delete AKS cluster ?](#delete_cluster)
 * [How to access Vagrant VM ?](#access)
 * [How to stop Vagrant VM ?](#stop)
 * [How to restart Vagrant VM ?](#restart)
@@ -92,6 +93,40 @@ By running the above command a **secret token** will be generated which can be u
 
 ***Go to browser***
 [http://localhost:8001/api/v1/namespaces/kube-system/services/http:kubernetes-dashboard:/proxy/#!/login](http://localhost:8001/api/v1/namespaces/kube-system/services/http:kubernetes-dashboard:/proxy/#!/login)
+
+
+<a id="create_cluster"></a>
+## How to create AKS Cluster ?
+
+* `$ cd azure-aks-vagrant-ubuntu/provisioning`
+* `$ vagrant ssh azure-aks-ubuntu`
+* `$ az login --username <YOUR_NAME> --password <YOUR_PASSWORD>`
+
+The below commands will ***answer*** the ***questions*** like 
+Which ***location*** ? 
+What are the various sizes like ***cores , memory*** ?
+Which ***kubernetes version*** ?
+
+* `$ az account list-locations` [To list supported locations to create AKS cluster]
+* `$ az vm list-sizes -l <LOCATION_NAME>`[To list supported sizes]
+* `$ az aks get-versions`[To list supported kubernetes versions]
+ 
+ The below commands can be used to create ***AKS cluster***
+ 
+* `$ az group create --name <YOUR_RESOURCE_GROUP_NAME>  --location <YOUR_LOCATION_NAME>`[To list supported kubernetes versions]
+* `$ az aks create   -g <YOUR_RESOURCE_GROUP_NAME>  -n <YOUR_CLUSTER_NAME>   -s <YOUR_NODE_VM_SIZE>  -c <YOUR_NODE_COUNT>  -k <YOUR_KUBERNETES_VERSION> -l <YOUR_LOCATION_NAME>  --enable-addons monitoring`
+* `$ kubectl get nodes` [To verify kubectl is connected to aks cluster]
+
+<a id="delete_cluster"></a>
+## How to delete AKS Cluster ?
+
+* `$ cd azure-aks-vagrant-ubuntu/provisioning`
+* `$ vagrant ssh azure-aks-ubuntu`
+* `$ az login --username <YOUR_NAME> --password <YOUR_PASSWORD>`
+
+When the cluster is no longer needed, use the az group delete command to remove the ***resource group, container service, and all related resources***.
+
+* `$ az  group  delete --name <YOUR_RESOURCE_GROUP_NAME> --yes --no-wait`
 
 
 
