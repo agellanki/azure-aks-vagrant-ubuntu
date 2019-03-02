@@ -109,7 +109,7 @@ Which ***kubernetes version*** ?
 
 * `$ az account list-locations` [To list supported locations to create AKS cluster]
 * `$ az vm list-sizes -l <LOCATION_NAME>`[To list supported sizes]
-* `$ az aks get-versions`[To list supported kubernetes versions]
+* `$ az aks get-versions -l <LOCATION_NAME>`[To list supported kubernetes versions]
  
  The below commands can be used to create ***AKS cluster***
  
