@@ -113,7 +113,7 @@ Which ***kubernetes version*** ?
  
  The below commands can be used to create ***AKS cluster***
  
-* `$ az group create --name <YOUR_RESOURCE_GROUP_NAME>  --location <YOUR_LOCATION_NAME>`[To list supported kubernetes versions]
+* `$ az group create --name <YOUR_RESOURCE_GROUP_NAME>  --location <YOUR_LOCATION_NAME>`[To create Resource Group]
 * `$ az aks create   -g <YOUR_RESOURCE_GROUP_NAME>  -n <YOUR_CLUSTER_NAME>   -s <YOUR_NODE_VM_SIZE>  -c <YOUR_NODE_COUNT>  -k <YOUR_KUBERNETES_VERSION> -l <YOUR_LOCATION_NAME>  --enable-addons monitoring`
 * `$ kubectl get nodes` [To verify kubectl is connected to aks cluster]
 
